@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const Subscription = require('../models/Subscription');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthenticatedError } = require('../errors');
 
@@ -30,20 +29,7 @@ const login = async (req, res) => {
     res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
-const addSubscription = async (req, res) => {
-    const { company, dueDate, monthlyPayment, status, category } = req.body;
-    const createdBy = req.user._id; 
-
-    try {
-        const subscription = await Subscription.create({ company, dueDate, monthlyPayment, status, category, createdBy });
-        res.status(StatusCodes.CREATED).json({ subscription });
-    } catch (error) {
-        throw new BadRequestError('Could not add subscription');
-    }
-};
-
 module.exports = {
     register,
     login,
-    addSubscription,
 };
