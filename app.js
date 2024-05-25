@@ -10,6 +10,9 @@ const ratelimiter = require('express-rate-limit')
 const express = require('express');
 const app = express();
 
+//static file
+app.use(express.static("public"));
+
 // Connect to MongoDB
 const connectDB = require('./db/connect');
 const authenticateUser = require('./middleware/authentication');
